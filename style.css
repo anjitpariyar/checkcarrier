@@ -1,0 +1,220 @@
+:root {
+  --black: #222;
+  --white: #ffffff;
+  --primary: #8574eb;
+  --red: #da4b4b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--white);
+  color: var(--black);
+  font-size: 18px;
+  font-family: "Nanum Gothic", sans-serif;
+}
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+main {
+  display: flex;
+  height: clamp(100vh, 100vh, 100vh);
+  overflow: hidden;
+  justify-content: space-between;
+}
+@media only screen and (max-width: 600px) {
+  main {
+    height: clamp(100vh, 100%, 100%);
+    flex-direction: column;
+  }
+}
+main section {
+  padding: 1rem 2rem;
+  flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+}
+@media only screen and (max-width: 600px) {
+  main section {
+    padding: 1rem;
+  }
+}
+main aside.banner {
+  min-width: 450px;
+  width: 450px;
+}
+@media only screen and (max-width: 700px) {
+  main aside.banner {
+    width: 100%;
+    min-width: 100%;
+  }
+}
+main aside.banner img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+header nav li {
+  list-style-type: none;
+}
+header nav li.ml {
+  margin-left: auto;
+}
+header nav li a {
+  display: inline-block;
+  color: currentColor;
+  font-size: 1.4rem;
+}
+header nav li a:hover {
+  color: var(--primary);
+}
+header nav .brand {
+  height: 65px;
+  width: 65px;
+}
+@media only screen and (max-width: 600px) {
+  header nav .brand {
+    height: 45px;
+    width: 45px;
+  }
+}
+header nav .brand img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.body {
+  text-align: center;
+}
+.body h1 {
+  font-size: 4rem;
+  margin-bottom: 0;
+  font-weight: 800;
+}
+@media only screen and (max-width: 600px) {
+  .body h1 {
+    font-size: 2rem;
+    margin-top: 2em;
+  }
+}
+.body .text {
+  color: #868686;
+  margin-top: 0.5rem;
+  margin-bottom: 6em;
+}
+@media only screen and (max-width: 600px) {
+  .body .text {
+    margin-bottom: 2rem;
+  }
+}
+
+.card {
+  padding: 1em;
+  box-shadow: -2px 3px 8px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  margin: 2rem auto;
+  max-width: 100%;
+  display: flex;
+  gap: 1rem;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+@media only screen and (max-width: 600px) {
+  .card {
+    width: 100%;
+  }
+}
+.card .left {
+  height: 65px;
+  width: 65px;
+  min-width: 65px;
+  border-radius: 50%;
+  background-color: rgba(221, 47, 69, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-size: 1.5rem;
+}
+.card .left img {
+  height: 40px;
+  width: 40px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.card .right {
+  flex-grow: 2;
+  position: relative;
+}
+.card .right input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  font-size: 1.1rem;
+}
+.card .right input.invalid {
+  color: var(--red);
+}
+.card .right input.invalid + .error {
+  opacity: 1;
+  bottom: -44px;
+}
+.card .right .error {
+  text-align: left;
+  display: block;
+  font-size: 0.7em;
+  position: absolute;
+  bottom: -55px;
+  color: var(--red);
+  left: 0;
+  transition: 0.3s linear;
+  opacity: 0;
+}
+.card .right h2 {
+  text-align: left;
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.answer {
+  align-items: center;
+  transform: translateY(0px);
+  transition: 0.3s linear;
+  opacity: 1;
+  visibility: visible;
+  border: 2px solid var(--primary);
+}
+.answer.hide {
+  transform: translateY(10px);
+  opacity: 0;
+  visibility: hidden;
+}
+.answer .left {
+  background-color: rgba(133, 116, 235, 0.3411764706);
+}
+
+footer {
+  text-align: center;
+  margin-top: auto;
+  font-size: 13px;
+}
+footer a {
+  color: currentColor;
+  text-decoration: none;
+}/*# sourceMappingURL=style.css.map */
