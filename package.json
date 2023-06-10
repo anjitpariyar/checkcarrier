@@ -1,0 +1,22 @@
+{
+  "name": "checkcarrier",
+  "version": "1.0.0",
+  "description": "<p><a href=\"https://checkcarrier.vercel.app/\" target=\"_blank\"><img src=\"./images/og.png\" alt=\"anjit pariyar project\" /></a></p>",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anjitpariyar/checkcarrier.git"
+  },
+  "author": "anjit pariyar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anjitpariyar/checkcarrier/issues"
+  },
+  "homepage": "https://github.com/anjitpariyar/checkcarrier#readme",
+  "dependencies": {
+    "@vercel/analytics": "^1.0.1"
+  }
+}

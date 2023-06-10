@@ -1,142 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="description"
-      content="How to check Ntc Ncell Smart Cell Hello mobile numbers"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="og:title" content="Check Ncell number or NTC number" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://checkcarrier.vercel.app/" />
-    <meta property="og:image" content="./images/og.png" />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="How to check Ntc Ncell Smart Cell Hello mobile numbers" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link
-      rel="icon"
-      href="https://pbs.twimg.com/media/CJcscj_UAAEQr5j.jpg"
-      sizes="any"
-    />
-    <link
-      rel="icon"
-      href="https://pbs.twimg.com/media/CJcscj_UAAEQr5j.jpg"
-      type="image/svg+xml"
-    />
-    <link
-      rel="apple-touch-icon"
-      href="https://pbs.twimg.com/media/CJcscj_UAAEQr5j.jpg"
-    />
+  <meta property="og:title" content="Check Ncell number or NTC number" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://checkcarrier.vercel.app/" />
+  <meta property="og:image" content="./images/og.png" />
 
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="https://pbs.twimg.com/media/CJcscj_UAAEQr5j.jpg" sizes="any" />
+  <link rel="icon" href="https://pbs.twimg.com/media/CJcscj_UAAEQr5j.jpg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="https://pbs.twimg.com/media/CJcscj_UAAEQr5j.jpg" />
 
-    <link rel="manifest" href="site.webmanifest" />
-    <meta name="theme-color" content="#ffffff" />
-    <title>Check Nepal Carrier (NTC or NCELL)</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
-    />
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <main>
-      <section>
-        <header>
-          <nav>
-            <li>
-              <a
-                href="https://www.anjitpariyar.com.np/"
-                class="brand"
-                title="anjit pariyar"
-                target="_blank"
-              >
-                <img
-                  src="https://www.anjitpariyar.com.np/favicon-96x96.png"
-                  alt=""
-                />
-              </a>
-            </li>
-            <li class="ml">
-              <a
-                class=""
-                href="https://www.instagram.com/limbo_anj/"
-                title="instagram"
-                target="_blank"
-                ><i class="bi bi-instagram"></i>
-              </a>
-            </li>
-            <li>
-              <a
-                class=""
-                href="https://github.com/anjitpariyar"
-                title="github"
-                target="_blank"
-                ><i class="bi bi-github"></i>
-              </a>
-            </li>
-          </nav>
-        </header>
-        <div class="body">
-          <h1>NTC or NCELL ?</h1>
-          <p class="text">Check your sim carrier.</p>
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/style.css" />
 
-          <div class="card">
-            <div class="left">🇳🇵</div>
+  <link rel="manifest" href="site.webmanifest" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Check Nepal Carrier (NTC or NCELL)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
 
-            <div class="right">
-              <input
-                type="tel"
-                id="phone"
-                placeholder="Enter Phone number"
-                minlength="0"
-                maxlength="10"
-                autofocus
-              />
-              <span class="error"
-                ><i class="bi bi-exclamation-triangle"></i> Enter valid phone
-                number, eg: 98XXXXXXXX
-              </span>
-            </div>
-          </div>
-          <div class="card answer hide" id="answer">
-            <div class="left">
-              <img src="./images/not-found.png" alt="carrier sim card " />
-            </div>
-            <div class="right">
-              <h2>No Carrier had this number yet.</h2>
-            </div>
+<body>
+  <main>
+    <section>
+      <header>
+        <nav>
+          <li>
+            <a href="https://www.anjitpariyar.com.np/" class="brand" title="anjit pariyar" target="_blank">
+              <img src="https://www.anjitpariyar.com.np/favicon-96x96.png" alt="" />
+            </a>
+          </li>
+          <li class="ml">
+            <a class="" href="https://www.instagram.com/limbo_anj/" title="instagram" target="_blank"><i
+                class="bi bi-instagram"></i>
+            </a>
+          </li>
+          <li>
+            <a class="" href="https://github.com/anjitpariyar" title="github" target="_blank"><i
+                class="bi bi-github"></i>
+            </a>
+          </li>
+        </nav>
+      </header>
+      <div class="body">
+        <h1>NTC or NCELL ?</h1>
+        <p class="text">Check your sim carrier.</p>
+
+        <div class="card">
+          <div class="left">🇳🇵</div>
+
+          <div class="right">
+            <input type="tel" id="phone" placeholder="Enter Phone number" minlength="0" maxlength="10" autofocus />
+            <span class="error"><i class="bi bi-exclamation-triangle"></i> Enter valid phone
+              number, eg: 98XXXXXXXX
+            </span>
           </div>
         </div>
-        <footer>
-          <a
-            href="https://www.nepalitelecom.com/2018/02/ntc-ncell-smart-cell-mobile-number-range.html"
-            target="_blank"
-          >
-            Refered From here.
-          </a>
-          |
-          <a href="https://forms.gle/3k1m4Q4xajsUajH49" target="_blank"
-            >Any Feedback?</a
-          >
-        </footer>
-      </section>
-      <aside class="banner">
-        <img src="./cover.png" alt="cover image edited by anjit pariyar" />
-      </aside>
-    </main>
-    <script src="./custom.js"></script>
-  </body>
+        <div class="card answer hide" id="answer">
+          <div class="left">
+            <img src="./images/not-found.png" alt="carrier sim card " />
+          </div>
+          <div class="right">
+            <h2>No Carrier had this number yet.</h2>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <a href="https://www.nepalitelecom.com/2018/02/ntc-ncell-smart-cell-mobile-number-range.html" target="_blank">
+          Refered From here.
+        </a>
+        |
+        <a href="https://forms.gle/3k1m4Q4xajsUajH49" target="_blank">Any Feedback?</a>
+      </footer>
+    </section>
+    <aside class="banner">
+      <img src="./cover.png" alt="cover image edited by anjit pariyar" />
+    </aside>
+  </main>
+  <script src="./custom.js"></script>
+</body>
+
 </html>
