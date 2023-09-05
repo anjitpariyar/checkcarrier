@@ -23,7 +23,7 @@ html {
 
 main {
   display: flex;
-  height: clamp(100vh, 100vh, 100vh);
+  min-height: 100vh;
   overflow: hidden;
   justify-content: space-between;
 }
@@ -217,4 +217,36 @@ footer {
 footer a {
   color: currentColor;
   text-decoration: none;
+}
+
+/* Styling for the file upload container */
+.file-upload {
+  display: inline-block;
+  position: relative;
+}
+
+/* Hide the input element */
+#file-input {
+  display: none;
+}
+
+/* Style the label to look like a button */
+.file-label {
+  cursor: pointer;
+  padding: 14px 22px;
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  transition: 0.3s linear;
+}
+.file-label .file-text {
+  font-weight: bold;
+}
+.file-label .file-icon {
+  margin-right: 10px;
+  font-size: 20px;
 }/*# sourceMappingURL=style.css.map */

@@ -54,27 +54,37 @@
         </nav>
       </header>
       <div class="body">
-        <h1>NTC or NCELL ?</h1>
-        <p class="text">Check your sim carrier.</p>
+        <div>
+          <h1>NTC or NCELL ?</h1>
+          <p class="text">Check your sim carrier.</p>
 
-        <div class="card">
-          <div class="left">🇳🇵</div>
+          <div class="card">
+            <div class="left">🇳🇵</div>
 
-          <div class="right">
-            <input type="tel" id="phone" placeholder="Enter Phone number" minlength="0" maxlength="10" autofocus />
-            <span class="error"><i class="bi bi-exclamation-triangle"></i> Enter valid phone
-              number, eg: 98XXXXXXXX
-            </span>
+            <div class="right">
+              <input type="tel" id="phone" placeholder="Enter Phone number" minlength="0" maxlength="10" autofocus />
+              <span class="error"><i class="bi bi-exclamation-triangle"></i> Enter valid phone
+                number, eg: 98XXXXXXXX
+              </span>
+            </div>
+          </div>
+          <div class="card answer hide" id="answer">
+            <div class="left">
+              <img src="./images/not-found.png" alt="carrier sim card " />
+            </div>
+            <div class="right">
+              <h2>No Carrier had this number yet.</h2>
+            </div>
           </div>
         </div>
-        <div class="card answer hide" id="answer">
-          <div class="left">
-            <img src="./images/not-found.png" alt="carrier sim card " />
-          </div>
-          <div class="right">
-            <h2>No Carrier had this number yet.</h2>
-          </div>
+        <div class="file-upload">
+          <label for="file-input" class="file-label">
+            <span class="file-icon">&#x1F4C3;</span> <!-- File icon (unicode character) -->
+            <span class="file-text">Upload Excel or CSV</span>
+          </label>
+          <input type="file" id="file-input" accept=".xlsx, .csv" />
         </div>
+
       </div>
       <footer>
         <a href="https://www.nepalitelecom.com/2018/02/ntc-ncell-smart-cell-mobile-number-range.html" target="_blank">
@@ -89,6 +99,7 @@
     </aside>
   </main>
   <script src="./custom.js"></script>
+  <script src="./file.js"></script>
 </body>
 
 </html>
