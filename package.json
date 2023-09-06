@@ -4,7 +4,8 @@
   "description": "<p><a href=\"https://checkcarrier.vercel.app/\" target=\"_blank\"><img src=\"./images/og.png\" alt=\"anjit pariyar project\" /></a></p>",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,12 @@
   "homepage": "https://github.com/anjitpariyar/checkcarrier#readme",
   "dependencies": {
     "@vercel/analytics": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.1",
+    "eslint-config-standard": "latest",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
+    "eslint-plugin-promise": "^6.0.0"
   }
 }

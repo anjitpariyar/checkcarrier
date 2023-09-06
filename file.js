@@ -44,9 +44,23 @@ const excelFilehandle = (file, fileName) => {
         "phone_number column doesn't exists. please upload a valid excel. you can download same from example"
       );
     } else {
+      // add new header
+      headerRow.push("Sim_Name");
+
+      console.log("HeaderPush", headerRow);
+
       const dataRows = XLSX.utils.sheet_to_json(sheet, {
         header: phoneNumberIndex,
       });
+
+      // Modify the data rows to set "sim name" based on "phone_number"
+      dataRows.forEach((row) => {
+        const phoneNumber = row["phone_number"]; // Assuming the column name is
+        const simName = getSimNameBasedOnPhoneNumber(phoneNumber); // Modify this function as needed
+        row["Sim_Name"] = simName;
+        // console.log("Sim_Name", row);
+      });
+
       renderTable(headerRow, dataRows, fileName);
     }
   };
@@ -61,12 +75,10 @@ const renderTable = (headerRow, dataRows, fileName) => {
 
   if (table.tHead) table.tHead.querySelector("tr").innerHTML = "";
   if (table.tBodies.length > 0) table.tBodies[0].innerHTML = "";
-
   // Render table headers
   headerRow.forEach((cellText) => {
     const th = document.createElement("th");
     th.innerHTML = cellText;
-    console.log("th", th);
     table.tHead.querySelector("tr").appendChild(th);
   });
 
@@ -80,3 +92,22 @@ const renderTable = (headerRow, dataRows, fileName) => {
     table.tBodies[0].appendChild(tr);
   });
 };
+
+// // Function to determine "sim name" based on "phone_number"
+function getSimNameBasedOnPhoneNumber(phoneNumber) {
+  let value = phoneNumber.toString().slice(0, 3);
+  if (
+    value.match(ntc1) ||
+    value.match(ntc2) ||
+    value.match(ntc3) ||
+    value.match(ntc4)
+  ) {
+    return "NTC";
+  } else if (value.match(ncell)) {
+    return "NCELL";
+  } else if (value.match(smart)) {
+    return "SMART";
+  } else {
+    return "NA";
+  }
+}
