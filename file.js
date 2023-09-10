@@ -46,9 +46,6 @@ const excelFilehandle = (file, fileName) => {
     } else {
       // add new header
       headerRow.push("Sim_Name");
-
-      console.log("HeaderPush", headerRow);
-
       const dataRows = XLSX.utils.sheet_to_json(sheet, {
         header: phoneNumberIndex,
       });
@@ -61,7 +58,8 @@ const excelFilehandle = (file, fileName) => {
         // console.log("Sim_Name", row);
       });
 
-      renderTable(headerRow, dataRows, fileName);
+      // renderTable(headerRow, dataRows);
+      exportToXLSX(headerRow, dataRows, fileName);
     }
   };
 
@@ -70,7 +68,7 @@ const excelFilehandle = (file, fileName) => {
 
 const csvFilehandle = (file, fileName) => {};
 
-const renderTable = (headerRow, dataRows, fileName) => {
+const renderTable = (headerRow, dataRows) => {
   const table = document.getElementById("data-table");
 
   if (table.tHead) table.tHead.querySelector("tr").innerHTML = "";
@@ -110,4 +108,43 @@ function getSimNameBasedOnPhoneNumber(phoneNumber) {
   } else {
     return "NA";
   }
+}
+
+// make update excel downloadable
+function exportToXLSX(headerRow, dataRows, fileName) {
+  let dataRowsArray = dataRows.map((rows) => {
+    let newArr = [];
+    for (const key in rows) {
+      newArr.push(rows[key]);
+    }
+    return newArr;
+  });
+
+  const data = [headerRow, ...dataRowsArray];
+  const wb = XLSX.utils.book_new();
+  // Create a worksheet
+  const ws = XLSX.utils.aoa_to_sheet(data);
+
+  console.log("ws", ws);
+
+  XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+  // Generate the XLSX file as a blob
+  const wBout = XLSX.write(wb, { type: "array", bookType: "xls" });
+
+  console.log("wBout", wBout);
+
+  const url = window.URL.createObjectURL(
+    new Blob([wBout], { type: "application/octet-stream" })
+  );
+
+  console.log("url", url);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${fileName}-from-ncell-or-ntc.xls`;
+  a.innerText = "Export";
+  document.getElementById("export-button").appendChild(a);
+
+  // URL.revokeObjectURL(url);
 }
