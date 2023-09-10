@@ -5,6 +5,8 @@ function handleFileSelect(event) {
   if (files.length > 0) {
     const file = files[0];
     const fileName = file.name;
+
+    console.log("filename", fileName);
     // Check if the file has a valid extension
     if (fileName.endsWith(".xlsx") || fileName.endsWith(".xls")) {
       excelFilehandle(file, fileName);
@@ -58,15 +60,43 @@ const excelFilehandle = (file, fileName) => {
         // console.log("Sim_Name", row);
       });
 
-      // renderTable(headerRow, dataRows);
-      exportToXLSX(headerRow, dataRows, fileName);
+      renderTable(headerRow, dataRows);
+      exportToXLSX(headerRow, dataRows, fileName, "xls");
     }
   };
 
   reader.readAsArrayBuffer(file);
 };
 
-const csvFilehandle = (file, fileName) => {};
+const csvFilehandle = (file, fileName) => {
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    const contents = event.target.result;
+    const rows = contents.split("\n");
+    const csvData = [];
+    for (let i = 0; i < rows.length; i++) {
+      const cols = rows[i].split(",");
+      csvData.push(cols);
+    }
+
+    headerRow = csvData[0];
+    headerRow.push("Sim_Name");
+
+    dataRows = csvData.splice(1, csvData.length);
+
+    dataRows.forEach((row) => {
+      const phoneNumber = row[row.length - 1]; // Assuming the column name is
+      const simName = getSimNameBasedOnPhoneNumber(phoneNumber); // Modify this function as needed
+      row.push(simName);
+      // console.log("Sim_Name", row);
+    });
+
+    renderTable(headerRow, dataRows);
+    exportToXLSX(headerRow, dataRows, fileName, "csv");
+  };
+
+  reader.readAsText(file);
+};
 
 const renderTable = (headerRow, dataRows) => {
   const table = document.getElementById("data-table");
@@ -93,7 +123,7 @@ const renderTable = (headerRow, dataRows) => {
 
 // // Function to determine "sim name" based on "phone_number"
 function getSimNameBasedOnPhoneNumber(phoneNumber) {
-  let value = phoneNumber.toString().slice(0, 3);
+  let value = phoneNumber.toString().replaceAll("-", "").slice(0, 3);
   if (
     value.match(ntc1) ||
     value.match(ntc2) ||
@@ -111,7 +141,7 @@ function getSimNameBasedOnPhoneNumber(phoneNumber) {
 }
 
 // make update excel downloadable
-function exportToXLSX(headerRow, dataRows, fileName) {
+function exportToXLSX(headerRow, dataRows, fileName, fileType) {
   let dataRowsArray = dataRows.map((rows) => {
     let newArr = [];
     for (const key in rows) {
@@ -130,7 +160,7 @@ function exportToXLSX(headerRow, dataRows, fileName) {
   XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
 
   // Generate the XLSX file as a blob
-  const wBout = XLSX.write(wb, { type: "array", bookType: "xls" });
+  const wBout = XLSX.write(wb, { type: "array", bookType: fileType });
 
   console.log("wBout", wBout);
 
@@ -142,7 +172,7 @@ function exportToXLSX(headerRow, dataRows, fileName) {
 
   const a = document.createElement("a");
   a.href = url;
-  a.download = `${fileName}-from-ncell-or-ntc.xls`;
+  a.download = `${fileName.split(".")[0]}-from-ncell-or-ntc.xls`;
   a.innerText = "Export";
   document.getElementById("export-button").appendChild(a);
 
