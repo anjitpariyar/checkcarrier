@@ -61,7 +61,7 @@ const excelFilehandle = (file, fileName) => {
       });
 
       renderTable(headerRow, dataRows);
-      exportToXLSX(headerRow, dataRows, fileName, "xls");
+      exportToXLSX(headerRow, dataRows, fileName);
     }
   };
 
@@ -92,7 +92,7 @@ const csvFilehandle = (file, fileName) => {
     });
 
     renderTable(headerRow, dataRows);
-    exportToXLSX(headerRow, dataRows, fileName, "csv");
+    exportToCSV([headerRow, ...dataRows], fileName);
   };
 
   reader.readAsText(file);
@@ -103,6 +103,7 @@ const renderTable = (headerRow, dataRows) => {
 
   if (table.tHead) table.tHead.querySelector("tr").innerHTML = "";
   if (table.tBodies.length > 0) table.tBodies[0].innerHTML = "";
+  document.getElementById("export-button").innerHTML = "";
   // Render table headers
   headerRow.forEach((cellText) => {
     const th = document.createElement("th");
@@ -141,7 +142,7 @@ function getSimNameBasedOnPhoneNumber(phoneNumber) {
 }
 
 // make update excel downloadable
-function exportToXLSX(headerRow, dataRows, fileName, fileType) {
+function exportToXLSX(headerRow, dataRows) {
   let dataRowsArray = dataRows.map((rows) => {
     let newArr = [];
     for (const key in rows) {
@@ -155,26 +156,30 @@ function exportToXLSX(headerRow, dataRows, fileName, fileType) {
   // Create a worksheet
   const ws = XLSX.utils.aoa_to_sheet(data);
 
-  console.log("ws", ws);
-
   XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
 
   // Generate the XLSX file as a blob
-  const wBout = XLSX.write(wb, { type: "array", bookType: fileType });
-
-  console.log("wBout", wBout);
+  const wBout = XLSX.write(wb, { type: "array", bookType: "xls" });
 
   const url = window.URL.createObjectURL(
     new Blob([wBout], { type: "application/octet-stream" })
   );
 
-  console.log("url", url);
-
   const a = document.createElement("a");
   a.href = url;
   a.download = `${fileName.split(".")[0]}-from-ncell-or-ntc.xls`;
-  a.innerText = "Export";
+  a.innerText = "Export xls";
   document.getElementById("export-button").appendChild(a);
+}
 
-  // URL.revokeObjectURL(url);
+function exportToCSV(data, fileName) {
+  console.log("exportToCSV", data);
+  const csvContent = data.map((row) => row.join(",")).join("\n");
+  const blob = new Blob([csvContent], { type: "text/csv" });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${fileName.split(".")[0]}-from-ncell-or-ntc.csv`;
+  a.innerText = "Export CSV";
+  document.getElementById("export-button").appendChild(a);
 }
