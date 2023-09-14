@@ -43,11 +43,13 @@ main {
     @media only screen and (max-width: 700px) {
       width: 100%;
       min-width: 100%;
+      max-height: 400px;
     }
     img {
       height: 100%;
       width: 100%;
       object-fit: cover;
+      object-position: bottom;
     }
   }
 }
@@ -207,6 +209,9 @@ footer {
   a {
     color: currentColor;
     text-decoration: none;
+    &:hover {
+      color: var(--red);
+    }
   }
 }
 
@@ -235,11 +240,129 @@ footer {
   display: flex;
   align-items: center;
   transition: 0.3s linear;
+  @media only screen and (max-width: 600px) {
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+
   .file-text {
     font-weight: bold;
   }
   .file-icon {
     margin-right: 10px;
     font-size: 20px;
+    @media only screen and (max-width: 600px) {
+      margin-right: 4px;
+      font-size: 17px;
+    }
+  }
+}
+
+// styles about tables
+.data-table {
+  max-width: 1200px;
+  margin: 30px auto;
+  width: 90%;
+  overflow-x: auto;
+  max-height: 80vh;
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
+  table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    text-align: center;
+    @media only screen and (max-width: 600px) {
+      font-size: 14px;
+    }
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 9;
+      tr {
+        background-color: var(--primary);
+        color: #ffffff;
+        text-align: left;
+      }
+      th {
+        @media only screen and (max-width: 600px) {
+          padding: 12px 4px;
+        }
+      }
+    }
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: center;
+      @media only screen and (max-width: 600px) {
+        padding: 4px;
+      }
+    }
+    tbody tr {
+      border-bottom: 1px solid #dddddd;
+      &:nth-of-type(even) {
+        background-color: #f3f3f3;
+      }
+      &:last-of-type {
+        border-bottom: 2px solid var(--primary);
+      }
+    }
+  }
+
+  .sim-tag {
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 6px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    @media only screen and (max-width: 600px) {
+      border: none;
+      padding: 0;
+    }
+    .img-box {
+      height: 35px;
+      width: 35px;
+      min-width: 35px;
+      border-radius: 50%;
+      background-color: #8574eb57;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @media only screen and (max-width: 600px) {
+        height: 25px;
+        width: 25px;
+        background-color: transparent;
+        border-radius: 0;
+      }
+      img {
+        height: 25px;
+        width: 25px;
+      }
+    }
+  }
+}
+
+#export-button {
+  margin-bottom: 40px;
+  a {
+    cursor: pointer;
+    padding: 14px 22px;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: 8px;
+    font-size: 18px;
+    transition: 0.3s linear;
+    display: inline-block;
+    text-decoration: none;
+    @media only screen and (max-width: 600px) {
+      font-size: 14px;
+      padding: 12px 16px;
+    }
   }
 }

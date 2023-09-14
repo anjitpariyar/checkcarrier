@@ -6,7 +6,6 @@ function handleFileSelect(event) {
     const file = files[0];
     const fileName = file.name;
 
-    console.log("filename", fileName);
     // Check if the file has a valid extension
     if (fileName.endsWith(".xlsx") || fileName.endsWith(".xls")) {
       excelFilehandle(file, fileName);
@@ -42,9 +41,13 @@ const excelFilehandle = (file, fileName) => {
 
     // not found phone number
     if (phoneNumberIndex == -1) {
-      alert(
-        "phone_number column doesn't exists. please upload a valid excel. you can download same from example"
-      );
+      if (
+        confirm(
+          "phone_number column doesn't exists. please upload a valid xls. Would you like to download XLS sample?"
+        )
+      ) {
+        document.getElementById("xls-sample").click();
+      }
     } else {
       // add new header
       headerRow.push("Sim_Name");
@@ -72,27 +75,36 @@ const csvFilehandle = (file, fileName) => {
   const reader = new FileReader();
   reader.onload = function (event) {
     const contents = event.target.result;
-    const rows = contents.split("\n");
-    const csvData = [];
-    for (let i = 0; i < rows.length; i++) {
-      const cols = rows[i].split(",");
-      csvData.push(cols);
+
+    // Parse the Excel data into a JSON object.
+    const workbook = XLSX.read(contents, { type: "binary" });
+    const sheetName = workbook.SheetNames[0]; // Assuming you have one sheet.
+    const csvData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+
+    if (csvData[0]?.phone_number == undefined) {
+      if (
+        confirm(
+          "phone_number column doesn't exists. please upload a valid csv. Would you like to download CSV sample?"
+        )
+      ) {
+        document.getElementById("csv-sample").click();
+      }
+      return;
     }
 
-    headerRow = csvData[0];
+    headerRow = Object.keys(csvData[0]);
     headerRow.push("Sim_Name");
 
-    dataRows = csvData.splice(1, csvData.length);
+    dataRows = [...csvData];
 
     dataRows.forEach((row) => {
-      const phoneNumber = row[row.length - 1]; // Assuming the column name is
-      const simName = getSimNameBasedOnPhoneNumber(phoneNumber); // Modify this function as needed
-      row.push(simName);
-      // console.log("Sim_Name", row);
+      const phoneNumber = row["phone_number"]; // Assuming the column name is
+      const simName = getSimNameBasedOnPhoneNumber(phoneNumber);
+      row.Sim_Name = simName;
     });
 
     renderTable(headerRow, dataRows);
-    exportToCSV([headerRow, ...dataRows], fileName);
+    exportToCSV([...dataRows], fileName);
   };
 
   reader.readAsText(file);
@@ -113,13 +125,22 @@ const renderTable = (headerRow, dataRows) => {
 
   dataRows.forEach((row) => {
     const tr = document.createElement("tr");
-    Object.values(row).forEach((cellValue) => {
+
+    for (const key in row) {
+      const cellValue = row[key];
       const td = document.createElement("td");
-      td.textContent = cellValue;
-      tr.appendChild(td);
-    });
+      if (key === "Sim_Name") {
+        td.innerHTML = renderSimCard(cellValue);
+        tr.appendChild(td);
+      } else {
+        td.textContent = cellValue;
+        tr.appendChild(td);
+      }
+    }
     table.tBodies[0].appendChild(tr);
   });
+
+  table.scrollIntoView({ behavior: "smooth", block: "center" });
 };
 
 // // Function to determine "sim name" based on "phone_number"
@@ -142,7 +163,7 @@ function getSimNameBasedOnPhoneNumber(phoneNumber) {
 }
 
 // make update excel downloadable
-function exportToXLSX(headerRow, dataRows) {
+function exportToXLSX(headerRow, dataRows, fileName) {
   let dataRowsArray = dataRows.map((rows) => {
     let newArr = [];
     for (const key in rows) {
@@ -173,9 +194,12 @@ function exportToXLSX(headerRow, dataRows) {
 }
 
 function exportToCSV(data, fileName) {
-  console.log("exportToCSV", data);
-  const csvContent = data.map((row) => row.join(",")).join("\n");
-  const blob = new Blob([csvContent], { type: "text/csv" });
+  console.log("data", data);
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(data);
+  XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+  const wBout = XLSX.write(wb, { bookType: "csv", type: "array" });
+  const blob = new Blob([wBout], { type: "text/csv" });
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -183,3 +207,31 @@ function exportToCSV(data, fileName) {
   a.innerText = "Export CSV";
   document.getElementById("export-button").appendChild(a);
 }
+
+const renderSimCard = (value) => {
+  if (value == "NCELL") {
+    return `
+    <div class="sim-tag">
+    <div class="img-box">
+      <img src="./images/ncell.png" alt="ncell ot ntc">
+    </div> <span>NCELL</span>
+  </div>
+    `;
+  } else if (value == "NTC") {
+    return `
+    <div class="sim-tag">
+    <div class="img-box">
+      <img src="./images/ntc.png" alt="ncell ot ntc">
+    </div> <span>NTC</span>
+  </div>
+    `;
+  } else {
+    return `
+    <div class="sim-tag">
+    <div class="img-box">
+      <img src="./images/not-found.png" alt="ncell ot ntc">
+    </div> <span>NA</span>
+  </div>
+    `;
+  }
+};
